@@ -1,0 +1,54 @@
+.root {
+    -fx-background-image: url("all_background.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.title {
+    -fx-text-fill: white;
+    -fx-font-size: 42px;
+    -fx-font-weight: bold;
+}
+
+.subtitle {
+    -fx-text-fill: rgba(255,255,255,0.85);
+    -fx-font-size: 15px;
+    -fx-padding: 0 0 20 0;
+}
+
+.gradient-btn {
+    -fx-background-color:
+            linear-gradient(to bottom right, #4ecdc4, #1fae9c);
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-pref-width: 220px;
+    -fx-pref-height: 44px;
+    -fx-background-radius: 25;
+
+    -fx-border-color: rgba(255,255,255,0.7);
+    -fx-border-width: 1.5;
+    -fx-border-radius: 25;
+
+    -fx-effect: dropshadow(gaussian,
+    rgba(0,255,220,0.55),
+    10, 0.4, 0, 4);
+}
+
+.gradient-btn:hover {
+    -fx-effect: dropshadow(gaussian,
+    rgba(255,255,255,0.7),
+    14, 0.5, 0, 6);
+}
+
+.small-text {
+    -fx-text-fill: rgba(255,255,255,0.75);
+    -fx-font-size: 12px;
+}
+
+.login-text {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
