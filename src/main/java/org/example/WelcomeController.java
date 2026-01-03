@@ -1,12 +1,25 @@
 package org.example;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class WelcomeController {
 
     @FXML
-    private void onRegister(ActionEvent event) {
-        System.out.println("Sign Up clicked");
+    private void openStudentSignup() {
+        System.out.println("SIGN UP CLICKED");
+        try {
+            Main.switchScene("student_signup.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void openAdminLogin() {
+        try {
+            Main.switchScene("admin_login.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

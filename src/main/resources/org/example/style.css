@@ -1,3 +1,6 @@
+/* =========================
+   GLOBAL BACKGROUND
+   ========================= */
 .root {
     -fx-background-image: url("all_background.png");
     -fx-background-size: cover;
@@ -5,50 +8,125 @@
     -fx-background-repeat: no-repeat;
 }
 
+
+/* =========================
+   WELCOME PAGE STYLES
+   ========================= */
+
 .title {
-    -fx-text-fill: white;
-    -fx-font-size: 42px;
+    -fx-text-fill: #141313;
+    -fx-font-size: 32px;
     -fx-font-weight: bold;
 }
 
 .subtitle {
-    -fx-text-fill: rgba(255,255,255,0.85);
-    -fx-font-size: 15px;
-    -fx-padding: 0 0 20 0;
+    -fx-text-fill: #040404;
+    -fx-font-size: 16px;
 }
 
 .gradient-btn {
     -fx-background-color:
-            linear-gradient(to bottom right, #4ecdc4, #1fae9c);
+            linear-gradient(to bottom right, #30a69e, #1fae9c);
     -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-pref-width: 320px;
+    -fx-pref-height: 56px;
+    -fx-background-radius: 28;
+
+    -fx-border-color: rgba(255,255,255,0.8);
+    -fx-border-width: 1.5;
+    -fx-border-radius: 28;
+
+    -fx-effect: dropshadow(gaussian,
+    rgba(0,255,220,0.6),
+    12, 0.4, 0, 5);
+}
+
+.login-btn {
+    -fx-background-color: #1A786C;
+    -fx-text-fill: #CACBD3;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+
+/* =========================
+   ADMIN LOGIN CARD
+   ========================= */
+
+.login-box {
+    -fx-background-color: rgba(40, 120, 120, 0.45);
+    -fx-padding: 28 26 32 26;
+    -fx-background-radius: 22;
+
+    -fx-effect: dropshadow(gaussian,
+    rgba(0,0,0,0.35),
+    25, 0.4, 0, 8);
+}
+
+.login-title {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+
+/* =========================
+   LABELS (WHITE CAPSULES)
+   ========================= */
+
+.white-label {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-padding: 4 8 4 8;
+    -fx-background-radius: 6;
+}
+
+
+/* =========================
+   INPUT FIELDS
+   ========================= */
+
+.underline-field {
+    -fx-background-color: transparent;
+    -fx-border-color: black;
+    -fx-border-width: 0 0 1.5 0;
+
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #EDEDED;
+    -fx-font-size: 13px;
+    -fx-pref-height: 42px;
+}
+
+
+/* =========================
+   PASSWORD EYE BUTTON
+   ========================= */
+
+.eye-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 6;
+}
+
+
+/* =========================
+   LOGIN BUTTON (WHITE)
+   ========================= */
+
+.login-btn-white {
+    -fx-background-color: white;
+    -fx-text-fill: #042A36;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-pref-width: 220px;
-    -fx-pref-height: 44px;
-    -fx-background-radius: 25;
-
-    -fx-border-color: rgba(255,255,255,0.7);
-    -fx-border-width: 1.5;
-    -fx-border-radius: 25;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 100%;
+    -fx-background-radius: 12;
 
     -fx-effect: dropshadow(gaussian,
-    rgba(0,255,220,0.55),
-    10, 0.4, 0, 4);
-}
-
-.gradient-btn:hover {
-    -fx-effect: dropshadow(gaussian,
-    rgba(255,255,255,0.7),
-    14, 0.5, 0, 6);
-}
-
-.small-text {
-    -fx-text-fill: rgba(255,255,255,0.75);
-    -fx-font-size: 12px;
-}
-
-.login-text {
-    -fx-text-fill: white;
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
+    rgba(0,0,0,0.25),
+    8, 0.4, 0, 4);
 }

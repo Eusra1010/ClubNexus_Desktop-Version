@@ -7,14 +7,25 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    private static Stage stage;
+
     @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("welcome.fxml"));
-        Scene scene = new Scene(loader.load(), 1000, 650);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        stage.setScene(scene);
-        stage.setTitle("MeetVerse");
+    public void start(Stage primaryStage) throws Exception {
+        stage = primaryStage;
+        switchScene("welcome.fxml");
+        stage.setTitle("Club Event Management");
+        stage.setWidth(1000);
+        stage.setHeight(650);
         stage.show();
+    }
+
+    public static void switchScene(String fxml) throws Exception {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxml));
+        Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(
+                Main.class.getResource("style.css").toExternalForm()
+        );
+        stage.setScene(scene);
     }
 
     public static void main(String[] args) {

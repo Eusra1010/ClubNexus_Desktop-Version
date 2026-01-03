@@ -21,7 +21,7 @@
         <Region prefHeight="80"/>
 
         <Button text="Sign Up"
-                onAction="#onRegister"
+                onAction="#openStudentSignup"
                 styleClass="gradient-btn"/>
 
         <Region prefHeight="20"/>
@@ -29,14 +29,14 @@
         <HBox alignment="CENTER" spacing="6">
             <Label text="Already have an account?"
                    styleClass="small-text"/>
-
-            <MenuButton text="Login"
-                        styleClass="login-btn">
+            <MenuButton text="Login" styleClass="login-btn">
                 <items>
+                    <MenuItem text="Admin Login" onAction="#openAdminLogin"/>
                     <MenuItem text="Student Login"/>
-                    <MenuItem text="Admin Login"/>
                 </items>
             </MenuButton>
+
+
         </HBox>
 
     </VBox>

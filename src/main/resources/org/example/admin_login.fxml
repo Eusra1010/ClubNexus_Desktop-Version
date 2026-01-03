@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.example.AdminLoginController"
+           styleClass="root">
+
+    <VBox alignment="CENTER"
+          spacing="20"
+          maxWidth="360"
+          fillWidth="true"
+          styleClass="login-box">
+
+        <Label text="ADMIN LOGIN"
+               styleClass="login-title"/>
+
+        <VBox spacing="6">
+            <Label text="Username / ID"
+                   styleClass="white-label"/>
+
+            <TextField fx:id="username"
+                       promptText="Enter username or ID"
+                       styleClass="underline-field"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Password"
+                   styleClass="white-label"/>
+
+            <HBox spacing="6" alignment="CENTER_RIGHT">
+                <PasswordField fx:id="password"
+                               promptText="Password"
+                               styleClass="underline-field"
+                               HBox.hgrow="ALWAYS"/>
+
+                <Button text="👁"
+                        onAction="#togglePassword"
+                        styleClass="eye-btn"/>
+            </HBox>
+        </VBox>
+
+        <Button text="LOGIN"
+                onAction="#onLogin"
+                maxWidth="Infinity"
+                prefHeight="50"
+                styleClass="login-btn-white"/>
+
+    </VBox>
+</StackPane>
