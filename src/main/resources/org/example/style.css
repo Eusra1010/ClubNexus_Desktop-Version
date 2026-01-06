@@ -9,10 +9,6 @@
 }
 
 
-/* =========================
-   WELCOME PAGE STYLES
-   ========================= */
-
 .title {
     -fx-text-fill: #141313;
     -fx-font-size: 32px;
@@ -51,9 +47,7 @@
 }
 
 
-/* =========================
-   ADMIN LOGIN CARD
-   ========================= */
+
 
 .login-box {
     -fx-background-color: rgba(40, 120, 120, 0.45);
@@ -72,9 +66,7 @@
 }
 
 
-/* =========================
-   LABELS (WHITE CAPSULES)
-   ========================= */
+
 
 .white-label {
     -fx-background-color: white;
@@ -85,9 +77,7 @@
 }
 
 
-/* =========================
-   INPUT FIELDS
-   ========================= */
+
 
 .underline-field {
     -fx-background-color: transparent;
@@ -101,9 +91,6 @@
 }
 
 
-/* =========================
-   PASSWORD EYE BUTTON
-   ========================= */
 
 .eye-btn {
     -fx-background-color: transparent;
@@ -113,9 +100,6 @@
 }
 
 
-/* =========================
-   LOGIN BUTTON (WHITE)
-   ========================= */
 
 .login-btn-white {
     -fx-background-color: white;
@@ -129,4 +113,112 @@
     -fx-effect: dropshadow(gaussian,
     rgba(0,0,0,0.25),
     8, 0.4, 0, 4);
+}
+
+
+.sidebar {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            rgba(15, 61, 62, 0.95),
+            rgba(26, 95, 96, 0.95)
+    );
+    -fx-background-radius: 0 18 18 0;
+}
+
+.profile-box {
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-background-radius: 12;
+    -fx-padding: 14;
+}
+
+.profile-name {
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 14;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.15);
+}
+
+.sidebar-btn.active {
+    -fx-background-color: rgba(255,255,255,0.28);
+}
+
+.logout {
+    -fx-text-fill: #ffd6d6;
+}
+
+
+
+.content-area {
+    -fx-background-color: rgba(255,255,255,0.25);
+    -fx-background-radius: 18;
+}
+
+.page-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #083c3b;
+}
+
+
+.dashboard-card {
+    -fx-pref-width: 220px;
+    -fx-pref-height: 130px;
+    -fx-background-radius: 18;
+    -fx-background-color: rgba(255,255,255,0.92);
+    -fx-alignment: CENTER;
+    -fx-spacing: 10;
+    -fx-cursor: hand;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(0,0,0,0.18),
+            12, 0.3, 0, 6
+    );
+}
+
+.dashboard-card:hover {
+    -fx-translate-y: -3;
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(0,0,0,0.25),
+            14, 0.3, 0, 8
+    );
+}
+
+
+.card-icon {
+    -fx-font-size: 34px;
+}
+
+/* CARD TITLE */
+.card-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #083c3b;
+}
+
+
+.activity-box {
+    -fx-background-color: rgba(255,255,255,0.88);
+    -fx-padding: 15;
+    -fx-background-radius: 14;
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #042A36;
 }

@@ -32,7 +32,8 @@
             <MenuButton text="Login" styleClass="login-btn">
                 <items>
                     <MenuItem text="Admin Login" onAction="#openAdminLogin"/>
-                    <MenuItem text="Student Login"/>
+                    <MenuItem text="Student Login"
+                              onAction="#openStudentLogin"/>
                 </items>
             </MenuButton>
 

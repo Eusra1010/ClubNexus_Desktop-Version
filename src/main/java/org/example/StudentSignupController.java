@@ -33,7 +33,7 @@ public class StudentSignupController {
     @FXML
     private void initialize() {
 
-        // Initial message shown when page loads
+
         passwordHint.setText(
                 "Password must contain both uppercase and lowercase letters, " +
                         "at least one number, at least one special character (@, #, &, etc.), " +
@@ -127,14 +127,49 @@ public class StudentSignupController {
     @FXML
     private void onSignup() {
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success");
-        alert.setHeaderText(null);
-        alert.setContentText("Sign up successful!");
+        try {
+            String name = fullName.getText();
+            String rollNo = roll.getText();
 
-        alert.showAndWait();
+            String rawPassword = passwordVisible
+                    ? visiblePasswordField.getText()
+                    : passwordField.getText();
 
-        System.out.println("Student sign up successful");
+            String hashedPassword = PasswordUtil.hashPassword(rawPassword);
+
+            var conn = Database.getConnection();
+            var ps = conn.prepareStatement(
+                    "INSERT INTO students (full_name, roll, password_hash) VALUES (?, ?, ?)"
+            );
+
+            ps.setString(1, name);
+            ps.setString(2, rollNo);
+            ps.setString(3, hashedPassword);
+            ps.executeUpdate();
+
+            ps.close();
+            conn.close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(null);
+            alert.setContentText("Sign up successful!");
+
+            alert.showAndWait();
+
+            Main.switchScene("welcome.fxml");
+
+        } catch (Exception e) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Roll already exists or database error");
+
+            alert.showAndWait();
+        }
     }
+
+
 
 }

@@ -5,8 +5,16 @@ import javafx.fxml.FXML;
 public class WelcomeController {
 
     @FXML
+    private void openStudentLogin() {
+        try {
+            Main.switchScene("student_login.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void openStudentSignup() {
-        System.out.println("SIGN UP CLICKED");
         try {
             Main.switchScene("student_signup.fxml");
         } catch (Exception e) {

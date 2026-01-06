@@ -20,10 +20,12 @@ public class Main extends Application {
     }
 
     public static void switchScene(String fxml) throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxml));
+        FXMLLoader loader = new FXMLLoader(
+                Main.class.getResource("/org/example/" + fxml)
+        );
         Scene scene = new Scene(loader.load());
         scene.getStylesheets().add(
-                Main.class.getResource("style.css").toExternalForm()
+                Main.class.getResource("/org/example/style.css").toExternalForm()
         );
         stage.setScene(scene);
     }
