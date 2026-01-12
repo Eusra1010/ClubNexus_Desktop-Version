@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.CreateEventController"
+      alignment="CENTER"
+      spacing="20"
+      prefWidth="Infinity"
+      prefHeight="Infinity"
+      maxWidth="Infinity"
+      maxHeight="Infinity">
+
+    <!-- FORM CARD -->
+    <VBox prefWidth="420"
+          spacing="18"
+          styleClass="login-box">
+
+        <Label text="Create Event"
+               styleClass="login-title"/>
+
+        <VBox spacing="6">
+            <Label text="Event Name" styleClass="white-label"/>
+            <TextField fx:id="eventNameField"
+                       promptText="Enter event name"
+                       styleClass="underline-field"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Event Date" styleClass="white-label"/>
+            <DatePicker fx:id="eventDatePicker"
+                        styleClass="underline-field"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Venue" styleClass="white-label"/>
+            <TextField fx:id="venueField"
+                       promptText="Enter venue"
+                       styleClass="underline-field"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Club" styleClass="white-label"/>
+            <TextField fx:id="clubField"
+                       promptText="Coding Club"
+                       styleClass="underline-field"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Event Fees" styleClass="white-label"/>
+            <TextField fx:id="feeField"
+                       promptText="Enter fees (0 for Free)"
+                       styleClass="underline-field"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Registration Deadline" styleClass="white-label"/>
+            <DatePicker fx:id="deadlinePicker"
+                        styleClass="underline-field"/>
+        </VBox>
+        <Button
+                text="CREATE EVENT"
+                onAction="#createEvent"
+                style="-fx-background-color: red; -fx-font-size: 18px;"/>
+
+
+
+    </VBox>
+</VBox>

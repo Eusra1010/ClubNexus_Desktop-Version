@@ -37,51 +37,61 @@ public class AdminLoginController {
     @FXML
     private void onLogin() {
 
-        String inputId = username.getText();
+        String inputId = username.getText().trim();
         String inputPassword = password.getText();
 
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:data/clubnexus.db");
-             PreparedStatement stmt = conn.prepareStatement(
-                     "SELECT password_hash FROM admins WHERE admin_id = ?")) {
+        if (inputId.isEmpty() || inputPassword.isEmpty()) {
+            showError("Please enter username and password");
+            return;
+        }
+
+        try (Connection conn =
+                     DriverManager.getConnection("jdbc:sqlite:data/clubnexus.db");
+             PreparedStatement stmt =
+                     conn.prepareStatement(
+                             "SELECT password_hash, club_name " +
+                                     "FROM admins WHERE admin_id = ?")) {
 
             stmt.setString(1, inputId);
             ResultSet rs = stmt.executeQuery();
 
-            if (!rs.next() || !inputPassword.equals(rs.getString("password_hash"))) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Login Failed");
-                alert.setHeaderText(null);
-                alert.setContentText("Login failed");
-                alert.showAndWait();
+            // ❌ Invalid login
+            if (!rs.next()
+                    || !inputPassword.equals(rs.getString("password_hash"))) {
+
+                showError("Login failed");
                 return;
             }
+
+            // ✅ FETCH CLUB NAME
+            String clubName = rs.getString("club_name");
+
+            // ✅ STORE SESSION
+            AdminSession.setAdmin(inputId, clubName);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login Successful");
             alert.setHeaderText(null);
-            alert.setContentText("Admin login successful!");
+            alert.setContentText(
+                    "Admin login successful!\nClub: " + clubName
+            );
             alert.showAndWait();
 
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Login Failed");
-            alert.setHeaderText(null);
-            alert.setContentText("Login failed");
-            alert.showAndWait();
-            return;
-        }
-
-        try {
+            // ✅ GO TO DASHBOARD
             Main.switchScene("admin_dashboard.fxml");
 
         } catch (Exception e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Dashboard could not be loaded");
-            alert.showAndWait();
+            showError("Login failed");
         }
     }
 
+    // ================= HELPER =================
+    private void showError(String msg) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
 }

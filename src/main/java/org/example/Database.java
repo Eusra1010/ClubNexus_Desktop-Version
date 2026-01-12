@@ -9,9 +9,8 @@ public class Database {
     private static final String DB_URL = "jdbc:sqlite:data/clubnexus.db";
 
     static {
-        try {
-            Connection conn = getConnection();
-            Statement stmt = conn.createStatement();
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement()) {
 
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS students (
@@ -26,12 +25,25 @@ public class Database {
                 CREATE TABLE IF NOT EXISTS admins (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     admin_id TEXT UNIQUE NOT NULL,
-                    password_hash TEXT NOT NULL
+                    password_hash TEXT NOT NULL,
+                    club_name TEXT NOT NULL
                 )
             """);
 
-            stmt.close();
-            conn.close();
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS events (
+                    event_id TEXT PRIMARY KEY,
+                    event_name TEXT NOT NULL,
+                    event_date TEXT NOT NULL,
+                    venue TEXT NOT NULL,
+                    club_name TEXT NOT NULL,
+                    fees TEXT,
+                    registration_open INTEGER,
+                    registration_count INTEGER,
+                    status TEXT,
+                    registration_deadline TEXT
+                )
+            """);
 
         } catch (Exception e) {
             e.printStackTrace();

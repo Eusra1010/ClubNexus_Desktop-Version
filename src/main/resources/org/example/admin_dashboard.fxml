@@ -9,7 +9,7 @@
             fx:controller="org.example.AdminDashboardController"
             styleClass="root">
 
-
+    <!-- ================= LEFT SIDEBAR ================= -->
     <left>
         <VBox prefWidth="240"
               spacing="20"
@@ -26,72 +26,85 @@
 
             <Separator/>
 
-            <Button text="Dashboard" styleClass="sidebar-btn active"/>
-            <Button text="Create Event" styleClass="sidebar-btn"/>
-            <Button text="Manage Events" styleClass="sidebar-btn"/>
-            <Button text="View Registrations" styleClass="sidebar-btn"/>
-            <Button text="Announcements" styleClass="sidebar-btn"/>
+            <Button text="📊  Dashboard"
+                    styleClass="sidebar-btn active"
+                    onAction="#showDashboard"/>
+
+            <Button text="➕  Create Event"
+                    styleClass="sidebar-btn"
+                    onAction="#onCreateEvent"/>
+
+            <Button text="🛠  Manage Events"
+                    styleClass="sidebar-btn"/>
+
+            <Button text="📄  View Registrations"
+                    styleClass="sidebar-btn"/>
+
+            <Button text="📢  Announcements"
+                    styleClass="sidebar-btn"/>
 
             <Pane VBox.vgrow="ALWAYS"/>
 
             <Separator/>
+
             <Button text="Logout"
                     styleClass="sidebar-btn logout"
                     onAction="#onLogout"/>
         </VBox>
     </left>
 
-
+    <!-- ================= CENTER CONTENT ================= -->
     <center>
-        <VBox spacing="25"
-              styleClass="content-area">
+        <StackPane fx:id="contentHolder" styleClass="content-area">
 
-            <padding>
-                <Insets top="25" right="25" bottom="25" left="25"/>
-            </padding>
+            <!-- DEFAULT DASHBOARD VIEW -->
+            <VBox spacing="30" VBox.vgrow="ALWAYS">
 
-            <Label text="Admin Dashboard"
-                   styleClass="page-title"/>
+                <padding>
+                    <Insets top="25" right="25" bottom="25" left="25"/>
+                </padding>
 
+                <Label text="Admin Dashboard"
+                       styleClass="page-title"/>
 
-            <GridPane hgap="20" vgap="20" alignment="CENTER">
+                <Label text="Choose an action to manage the system"
+                       styleClass="subtitle"/>
 
-                <VBox styleClass="dashboard-card">
-                    <Label text="➕" styleClass="card-icon"/>
-                    <Label text="Create Event" styleClass="card-title"/>
-                </VBox>
+                <GridPane hgap="30"
+                          vgap="30"
+                          alignment="CENTER"
+                          VBox.vgrow="ALWAYS"
+                          styleClass="admin-action-grid">
 
-                <VBox styleClass="dashboard-card"
-                      GridPane.columnIndex="1">
-                    <Label text="🛠" styleClass="card-icon"/>
-                    <Label text="Manage Events" styleClass="card-title"/>
-                </VBox>
+                    <VBox styleClass="dashboard-card"
+                          onMouseClicked="#onCreateEvent"
+                          style="-fx-cursor: hand;">
+                        <Label text="➕" styleClass="card-icon"/>
+                        <Label text="Create Event" styleClass="card-title"/>
+                    </VBox>
 
-                <VBox styleClass="dashboard-card"
-                      GridPane.rowIndex="1">
-                    <Label text="👥" styleClass="card-icon"/>
-                    <Label text="View Registrations" styleClass="card-title"/>
-                </VBox>
+                    <VBox styleClass="dashboard-card"
+                          GridPane.columnIndex="1">
+                        <Label text="🛠" styleClass="card-icon"/>
+                        <Label text="Manage Events" styleClass="card-title"/>
+                    </VBox>
 
-                <VBox styleClass="dashboard-card"
-                      GridPane.columnIndex="1"
-                      GridPane.rowIndex="1">
-                    <Label text="📢" styleClass="card-icon"/>
-                    <Label text="Announcements" styleClass="card-title"/>
-                </VBox>
+                    <VBox styleClass="dashboard-card"
+                          GridPane.rowIndex="1">
+                        <Label text="📄" styleClass="card-icon"/>
+                        <Label text="View Registrations" styleClass="card-title"/>
+                    </VBox>
 
-            </GridPane>
+                    <VBox styleClass="dashboard-card"
+                          GridPane.columnIndex="1"
+                          GridPane.rowIndex="1">
+                        <Label text="📢" styleClass="card-icon"/>
+                        <Label text="Announcements" styleClass="card-title"/>
+                    </VBox>
 
-
-            <VBox spacing="10" styleClass="activity-box">
-                <Label text="Recent Activity"
-                       styleClass="section-title"/>
-                <Label text="• Event “Tech Talk” created"/>
-                <Label text="• 12 new registrations"/>
-                <Label text="• Announcement posted"/>
+                </GridPane>
             </VBox>
-
-        </VBox>
+        </StackPane>
     </center>
 
 </BorderPane>
