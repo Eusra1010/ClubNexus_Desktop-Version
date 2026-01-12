@@ -11,6 +11,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Database.getConnection();
         stage = primaryStage;
         switchScene("welcome.fxml");
         stage.setTitle("Club Event Management");

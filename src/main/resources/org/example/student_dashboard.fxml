@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.StudentDashboardController"
+            styleClass="root">
+
+    <left>
+        <VBox prefWidth="240"
+              spacing="20"
+              styleClass="sidebar">
+
+            <padding>
+                <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+
+            <VBox alignment="CENTER" spacing="8" styleClass="profile-box">
+                <Label text="👤"/>
+                <Label text="Student" styleClass="profile-name"/>
+            </VBox>
+
+            <Separator/>
+
+            <Button text="📊  Dashboard" styleClass="sidebar-btn active"/>
+            <Button text="👀  View Events" styleClass="sidebar-btn"
+                    onAction="#goToViewEvents"/>
+            <Button text="📄  My Registrations" styleClass="sidebar-btn"
+                    onAction="#goToMyRegistrations"/>
+
+            <Pane VBox.vgrow="ALWAYS"/>
+
+            <Separator/>
+
+            <VBox spacing="4">
+                <Label text="Need help with an event?" styleClass="sidebar-footer"/>
+                <Label text="Contact Us" styleClass="sidebar-footer"/>
+                <Label text="Email: jeusra@gmail.com" styleClass="sidebar-footer"/>
+                <Label text="© 2026 ClubNexus" styleClass="sidebar-footer"/>
+            </VBox>
+
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="30"
+              styleClass="content-area">
+
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+
+            <HBox spacing="12">
+                <Button text="🔔" styleClass="header-btn"
+                        onAction="#openNotifications"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Button text="🏠 Home" styleClass="header-btn"
+                        onAction="#goHome"/>
+            </HBox>
+
+            <Label text="Student Dashboard" styleClass="page-title"/>
+
+            <GridPane hgap="30" vgap="30">
+
+                <VBox styleClass="dashboard-card"
+                      onMouseClicked="#goToViewEvents">
+                    <Label text="👀" styleClass="card-icon"/>
+                    <Label text="View Events" styleClass="card-title"/>
+                </VBox>
+
+                <VBox styleClass="dashboard-card"
+                      GridPane.columnIndex="1">
+                    <Label text="📝" styleClass="card-icon"/>
+                    <Label text="Register Event" styleClass="card-title"/>
+                </VBox>
+
+                <VBox styleClass="dashboard-card"
+                      GridPane.rowIndex="1"
+                      onMouseClicked="#goToMyRegistrations">
+                    <Label text="📄" styleClass="card-icon"/>
+                    <Label text="My Registrations" styleClass="card-title"/>
+                </VBox>
+
+            </GridPane>
+
+        </VBox>
+    </center>
+
+</BorderPane>

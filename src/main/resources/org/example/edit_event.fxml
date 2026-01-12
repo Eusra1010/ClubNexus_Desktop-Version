@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.EditEventController"
+      spacing="20" alignment="CENTER" styleClass="content-area">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <!-- Scrollable Edit Form Card -->
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="form-scroll">
+        <content>
+            <VBox prefWidth="460" spacing="18" styleClass="edit-box surface-gradient">
+                <Label text="Edit Event" styleClass="edit-title" textAlignment="CENTER" maxWidth="Infinity"/>
+
+        <Label fx:id="statusInfo" styleClass="subtitle" visible="false" managed="false"/>
+
+        <VBox spacing="6">
+            <Label text="Event Name" styleClass="white-label"/>
+            <TextField fx:id="nameField" promptText="Enter event name" styleClass="underline-field"/>
+            <Label fx:id="nameError" styleClass="error-text" visible="false" managed="false"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Event Date" styleClass="white-label"/>
+            <DatePicker fx:id="datePicker" styleClass="underline-field"/>
+            <Label fx:id="dateError" styleClass="error-text" visible="false" managed="false"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Venue" styleClass="white-label"/>
+            <TextField fx:id="venueField" promptText="Enter venue" styleClass="underline-field"/>
+            <Label fx:id="venueError" styleClass="error-text" visible="false" managed="false"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Fees" styleClass="white-label"/>
+            <TextField fx:id="feeField" promptText="Enter fees (0 for Free)" styleClass="underline-field"/>
+            <Label fx:id="feeError" styleClass="error-text" visible="false" managed="false"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Registration Deadline" styleClass="white-label"/>
+            <DatePicker fx:id="deadlinePicker" styleClass="underline-field"/>
+            <Label fx:id="deadlineError" styleClass="error-text" visible="false" managed="false"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Registration Status" styleClass="white-label"/>
+            <ToggleButton fx:id="registrationSwitch" text="Closed" styleClass="switch"/>
+        </VBox>
+
+        <Button text="Save Changes" onAction="#onSave" styleClass="gradient-btn"/>
+            </VBox>
+        </content>
+    </ScrollPane>
+
+</VBox>

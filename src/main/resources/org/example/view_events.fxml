@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.ViewEventsController"
+      spacing="16"
+      styleClass="content-area">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <!-- Header: back + title + toggle -->
+    <HBox spacing="12">
+        <Button text="Back" styleClass="header-btn" onAction="#goBack"/>
+        <Label text="View Events" styleClass="page-title"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Button fx:id="toggleViewBtn" text="View All Events" styleClass="header-btn" onAction="#toggleView"/>
+    </HBox>
+
+    <!-- Search box styled like Manage Events -->
+    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="search-box">
+        <Label text="🔎" styleClass="search-icon"/>
+        <TextField fx:id="searchField" promptText="Search by name, club, or venue" styleClass="search-input" HBox.hgrow="ALWAYS" prefHeight="44"/>
+        <Button text="Search" onAction="#onSearch" styleClass="search-btn"/>
+    </HBox>
+
+    <!-- Split layout: left list fills space; right panel hidden on View All -->
+    <HBox spacing="16" VBox.vgrow="ALWAYS">
+        <!-- Left: Events list -->
+        <ScrollPane fx:id="listScroll" fitToWidth="true" HBox.hgrow="ALWAYS">
+            <content>
+                <VBox fx:id="eventsList" spacing="10"/>
+            </content>
+        </ScrollPane>
+
+        <!-- Right: Registration form panel in its own scrollable box -->
+        <ScrollPane fx:id="regScroll" fitToWidth="true" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" styleClass="form-scroll" HBox.hgrow="NEVER" prefWidth="440">
+            <content>
+                <VBox fx:id="registrationPane" spacing="14" styleClass="edit-box form-gradient-alt panel-border">
+                    <Label text="Register Event" styleClass="edit-title"/>
+
+                    <VBox spacing="8">
+                        <Label text="Event" styleClass="white-label"/>
+                        <Label fx:id="eventTitle" text="Select an event" style="-fx-text-fill: white;"/>
+                        <Label text="Club" styleClass="white-label"/>
+                        <Label fx:id="eventClub" style="-fx-text-fill: white;"/>
+                        <Label fx:id="eventDate" style="-fx-text-fill: white;"/>
+                        <Label fx:id="eventVenue" style="-fx-text-fill: white;"/>
+                        <Label fx:id="eventFees" style="-fx-text-fill: white;"/>
+                    </VBox>
+
+                    <TextField fx:id="nameField" promptText="Full Name" styleClass="underline-field"/>
+                    <TextField fx:id="contactField" promptText="Contact (01XXXXXXXXX)" styleClass="underline-field"/>
+                    <TextField fx:id="emailField" promptText="Email" styleClass="underline-field"/>
+
+                    <ComboBox fx:id="batchCombo" promptText="Batch"/>
+                    <TextField fx:id="departmentField" promptText="Department" styleClass="underline-field"/>
+
+                    <Button fx:id="registerBtn" text="Register Event" styleClass="gradient-btn" onAction="#onRegisterFromPanel" disable="true"/>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </HBox>
+
+</VBox>

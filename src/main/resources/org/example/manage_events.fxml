@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.ManageEventsController"
+      spacing="16"
+      styleClass="content-area">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <!-- Title -->
+    <Label text="Manage Events" styleClass="page-title"/>
+
+    <!-- Search box -->
+    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="search-box">
+        <Label text="🔎" styleClass="search-icon"/>
+        <TextField fx:id="searchField" promptText="Search events by name or venue" styleClass="search-input" HBox.hgrow="ALWAYS"/>
+        <Button text="Search" onAction="#onSearch" styleClass="search-btn"/>
+    </HBox>
+
+    <!-- Filters -->
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button text="All"      onAction="#filterAll"      styleClass="filter-btn filter-all"/>
+        <Button text="Active"   onAction="#filterActive"   styleClass="filter-btn filter-active"/>
+        <Button text="Past"     onAction="#filterPast"     styleClass="filter-btn filter-past"/>
+        <Button text="Cancelled" onAction="#filterCancelled" styleClass="filter-btn filter-cancelled"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Hyperlink fx:id="viewAllLink" text="View All" onAction="#onToggleViewAll" styleClass="view-all-link"/>
+    </HBox>
+
+    <!-- Events list in ScrollPane -->
+    <ScrollPane fitToWidth="true" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" styleClass="events-scroll">
+        <content>
+            <VBox fx:id="eventsList" spacing="12"/>
+        </content>
+    </ScrollPane>
+
+</VBox>

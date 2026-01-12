@@ -1,13 +1,13 @@
-/* =========================
-   GLOBAL BACKGROUND
-   ========================= */
+.error-text {
+    -fx-text-fill: #ffd6d6;
+    -fx-font-size: 11px;
+}
 .root {
     -fx-background-image: url("all_background.png");
     -fx-background-size: cover;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
 }
-
 
 .title {
     -fx-text-fill: #141313;
@@ -21,22 +21,17 @@
 }
 
 .gradient-btn {
-    -fx-background-color:
-            linear-gradient(to bottom right, #30a69e, #1fae9c);
+    -fx-background-color: linear-gradient(to bottom right, #30a69e, #1fae9c);
     -fx-text-fill: white;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-pref-width: 320px;
     -fx-pref-height: 56px;
     -fx-background-radius: 28;
-
     -fx-border-color: rgba(255,255,255,0.8);
     -fx-border-width: 1.5;
     -fx-border-radius: 28;
-
-    -fx-effect: dropshadow(gaussian,
-    rgba(0,255,220,0.6),
-    12, 0.4, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(0,255,220,0.6), 12, 0.4, 0, 5);
 }
 
 .login-btn {
@@ -46,17 +41,36 @@
     -fx-font-weight: bold;
 }
 
-
-
-
 .login-box {
     -fx-background-color: rgba(40, 120, 120, 0.45);
     -fx-padding: 28 26 32 26;
     -fx-background-radius: 22;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 25, 0.4, 0, 8);
+}
 
-    -fx-effect: dropshadow(gaussian,
-    rgba(0,0,0,0.35),
-    25, 0.4, 0, 8);
+/* Editable card with adjustable gradient (you can tweak colors later) */
+.edit-box {
+    -fx-padding: 28 26 32 26;
+    -fx-background-radius: 22;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 25, 0.4, 0, 8);
+}
+
+/* Put the gradient here so you can easily adjust later */
+.surface-gradient {
+    -fx-background-color: linear-gradient(to bottom right, #2aa7a0, #159d92);
+}
+
+/* Alternate gradient for registration panel to stand out from background */
+.form-gradient-alt {
+    /* warm amber → coral, lighter tones for visibility over dark backgrounds */
+    -fx-background-color: linear-gradient(to bottom right, #FDE68A, #FCA5A5);
+}
+
+/* Subtle white border to further separate panel */
+.panel-border {
+    -fx-border-color: rgba(255,255,255,0.9);
+    -fx-border-width: 1.5;
+    -fx-border-radius: 22; /* matches edit-box radius */
 }
 
 .login-title {
@@ -65,8 +79,12 @@
     -fx-font-weight: bold;
 }
 
-
-
+.edit-title {
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
 
 .white-label {
     -fx-background-color: white;
@@ -76,21 +94,28 @@
     -fx-background-radius: 6;
 }
 
-
-
-
 .underline-field {
     -fx-background-color: transparent;
     -fx-border-color: black;
     -fx-border-width: 0 0 1.5 0;
-
     -fx-text-fill: white;
     -fx-prompt-text-fill: #EDEDED;
     -fx-font-size: 13px;
     -fx-pref-height: 42px;
 }
 
-
+/* Toggle switch styling for registration status */
+/* Material-like switch (ToggleButton) */
+.switch {
+    -fx-background-radius: 16;
+    -fx-padding: 6 14;
+    -fx-background-color: rgba(255,255,255,0.9);
+    -fx-text-fill: #063b3a;
+}
+.switch:selected {
+    -fx-background-color: #1FAE9C;
+    -fx-text-fill: white;
+}
 
 .eye-btn {
     -fx-background-color: transparent;
@@ -98,8 +123,6 @@
     -fx-font-size: 14px;
     -fx-padding: 6;
 }
-
-
 
 .login-btn-white {
     -fx-background-color: white;
@@ -109,12 +132,8 @@
     -fx-pref-height: 50px;
     -fx-pref-width: 100%;
     -fx-background-radius: 12;
-
-    -fx-effect: dropshadow(gaussian,
-    rgba(0,0,0,0.25),
-    8, 0.4, 0, 4);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 8, 0.4, 0, 4);
 }
-
 
 .sidebar {
     -fx-background-color: linear-gradient(
@@ -159,11 +178,44 @@
     -fx-text-fill: #ffd6d6;
 }
 
+/* (Removed) Create Event special styling to match others */
 
-
+/* THIS IS THE FIX */
 .content-area {
-    -fx-background-color: rgba(255,255,255,0.25);
-    -fx-background-radius: 18;
+    -fx-background-image: url("all_background.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+/* Make the edit form's ScrollPane transparent so global background shows */
+.form-scroll {
+    -fx-background-color: transparent;
+}
+.form-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+
+.dashboard-header {
+    -fx-background-color: rgba(255,255,255,0.35);
+    -fx-background-radius: 14;
+    -fx-padding: 12 16;
+}
+
+.header-btn {
+    -fx-background-color: rgba(255,255,255,0.95);
+    -fx-text-fill: #063b3a;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 6 14;
+}
+
+.dashboard-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
 .page-title {
@@ -171,7 +223,6 @@
     -fx-font-weight: bold;
     -fx-text-fill: #083c3b;
 }
-
 
 .dashboard-card {
     -fx-pref-width: 220px;
@@ -181,44 +232,121 @@
     -fx-alignment: CENTER;
     -fx-spacing: 10;
     -fx-cursor: hand;
-
-    -fx-effect: dropshadow(
-            gaussian,
-            rgba(0,0,0,0.18),
-            12, 0.3, 0, 6
-    );
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 12, 0.3, 0, 6);
 }
 
 .dashboard-card:hover {
     -fx-translate-y: -3;
-    -fx-effect: dropshadow(
-            gaussian,
-            rgba(0,0,0,0.25),
-            14, 0.3, 0, 8
-    );
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 14, 0.3, 0, 8);
 }
-
 
 .card-icon {
     -fx-font-size: 34px;
 }
 
-/* CARD TITLE */
 .card-title {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #083c3b;
 }
 
-
-.activity-box {
-    -fx-background-color: rgba(255,255,255,0.88);
-    -fx-padding: 15;
+.search-box {
+    -fx-background-color: #074746; /* darker teal */
     -fx-background-radius: 14;
+    -fx-padding: 14 16;
+    -fx-min-height: 64px;
+}
+.search-icon {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+.search-input {
+    -fx-background-color: rgba(255,255,255,0.95);
+    -fx-text-fill: #063b3a;
+    -fx-background-radius: 8;
+    -fx-padding: 10 12;
+    -fx-alignment: CENTER_RIGHT; /* place text at right side */
+}
+.search-btn {
+    -fx-background-color: rgba(255,255,255,0.95);
+    -fx-text-fill: #063b3a;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 14;
+}
+
+.filter-btn {
+    -fx-background-radius: 10;
+    -fx-padding: 8 14;
+    -fx-font-weight: bold;
+}
+/* Use dark navy/black tones for all filters for a professional look */
+.filter-all {       -fx-background-color: #0B1F2A; -fx-text-fill: #FFFFFF; }
+.filter-active {    -fx-background-color: #0B1F2A; -fx-text-fill: #FFFFFF; }
+.filter-past {      -fx-background-color: #0B1F2A; -fx-text-fill: #FFFFFF; }
+.filter-cancelled { -fx-background-color: #0B1F2A; -fx-text-fill: #FFFFFF; }
+
+.event-row {
+    -fx-background-color: rgba(255,255,255,0.95);
+    -fx-background-radius: 12;
+    -fx-padding: 12 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0.3, 0, 4);
+}
+.event-title {
+    -fx-text-fill: #083c3b;
+    -fx-font-weight: bold;
+}
+.event-meta {
+    -fx-text-fill: #206d6b;
+    -fx-font-size: 12px;
+}
+.event-meta-pane {
+    -fx-padding: 0 0 4 0;
+}
+.event-status {
+    -fx-background-color: rgba(47, 178, 168, 0.18);
+    -fx-text-fill: #083c3b;
+    -fx-padding: 2 8;
+    -fx-background-radius: 8;
+}
+
+.action-btn {
+    -fx-background-radius: 10;
+    -fx-padding: 6 10;
+    -fx-font-weight: bold;
+}
+.edit-btn {   -fx-background-color: #3B82F6; -fx-text-fill: white; }
+.close-btn {  -fx-background-color: #FFA64D; -fx-text-fill: #083c3b; }
+.cancel-btn { -fx-background-color: #E74C3C; -fx-text-fill: white; }
+
+.view-all-link {
+    -fx-text-fill: white;
+    -fx-underline: true;
 }
 
 .section-title {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #042A36;
+    -fx-text-fill: white;
+}
+
+.sidebar-footer {
+    -fx-text-fill: rgba(255,255,255,0.95);
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.empty-text {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Summary pills for registrations */
+.summary-pill {
+    -fx-background-color: rgba(255,255,255,0.92);
+    -fx-text-fill: #083c3b;
+    -fx-font-weight: bold;
+    -fx-padding: 6 10;
+    -fx-background-radius: 10;
 }

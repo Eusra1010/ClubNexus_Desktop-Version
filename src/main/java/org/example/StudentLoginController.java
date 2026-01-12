@@ -47,13 +47,12 @@ public class StudentLoginController {
     @FXML
     private void onLogin() {
 
+        String rollNo = roll.getText();
+
+        String rawPassword = passwordVisible
+                ? visiblePasswordField.getText()
+                : passwordField.getText();
         try {
-            String rollNo = roll.getText();
-
-            String rawPassword = passwordVisible
-                    ? visiblePasswordField.getText()
-                    : passwordField.getText();
-
             String hashedInput = PasswordUtil.hashPassword(rawPassword);
 
             Connection conn = Database.getConnection();
@@ -64,26 +63,16 @@ public class StudentLoginController {
 
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                String storedHash = rs.getString("password_hash");
-
-                if (hashedInput.equals(storedHash)) {
-
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Login Successful");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Student login successful!");
-                    alert.showAndWait();
-
-                    // 👉 GO TO STUDENT DASHBOARD (placeholder)
-                    Main.switchScene("student_dashboard.fxml");
-
-                } else {
-                    showError("Incorrect password");
-                }
-
-            } else {
+            if (!rs.next()) {
                 showError("Roll not found");
+                return;
+            }
+
+            String storedHash = rs.getString("password_hash");
+
+            if (!hashedInput.equals(storedHash)) {
+                showError("Incorrect password");
+                return;
             }
 
             rs.close();
@@ -91,8 +80,24 @@ public class StudentLoginController {
             conn.close();
 
         } catch (Exception e) {
-            showError("Database error");
             e.printStackTrace();
+            showError("Database error");
+            return;
+        }
+
+        /* ---------------- SCENE SWITCH (SEPARATE) ---------------- */
+        try {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Login Successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Student login successful!");
+            alert.showAndWait();
+
+            Main.switchScene("student_dashboard.fxml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Failed to load Student Dashboard");
         }
     }
 

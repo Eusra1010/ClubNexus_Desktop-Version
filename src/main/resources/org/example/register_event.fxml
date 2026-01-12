@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.RegisterEventController"
+      spacing="16"
+      styleClass="content-area">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button text="Back" styleClass="header-btn" onAction="#goBack"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" styleClass="form-scroll">
+        <content>
+            <VBox spacing="18" alignment="CENTER">
+                <VBox spacing="14" styleClass="edit-box surface-gradient" maxWidth="520">
+                    <Label text="Register Event" styleClass="edit-title"/>
+
+                    <VBox spacing="10">
+                        <Label text="Event" styleClass="white-label"/>
+                        <Label fx:id="eventNameLabel" style="-fx-text-fill: white;"/>
+                        <Label text="Club" styleClass="white-label"/>
+                        <Label fx:id="clubLabel" style="-fx-text-fill: white;"/>
+                    </VBox>
+
+                    <TextField fx:id="fullNameField" promptText="Full Name" styleClass="underline-field"/>
+                    <TextField fx:id="contactField" promptText="Contact (01XXXXXXXXX)" styleClass="underline-field"/>
+                    <TextField fx:id="emailField" promptText="Email" styleClass="underline-field"/>
+
+                    <ComboBox fx:id="batchCombo" promptText="Batch"/>
+                    <TextField fx:id="departmentField" promptText="Department" styleClass="underline-field"/>
+
+                    <Button text="Register Event" styleClass="gradient-btn" onAction="#submit"/>
+                </VBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+
+</VBox>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.ViewRegistrationsController"
+      spacing="16">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Label text="View Registrations" styleClass="page-title"/>
+
+    <HBox spacing="12">
+        <ComboBox fx:id="eventSelector" promptText="All Events"/>
+        <TextField fx:id="searchField" promptText="Search by name or email"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label fx:id="totalLabel" styleClass="summary-pill" text="Total: 0"/>
+        <Label fx:id="paidLabel" styleClass="summary-pill" text="Paid: 0"/>
+        <Label fx:id="unpaidLabel" styleClass="summary-pill" text="Unpaid: 0"/>
+    </HBox>
+
+    <TableView fx:id="table" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="nameCol" text="Name" prefWidth="220"/>
+            <TableColumn fx:id="emailCol" text="Email" prefWidth="260"/>
+            <TableColumn fx:id="contactCol" text="Contact" prefWidth="160"/>
+        </columns>
+        <placeholder>
+            <Label text="No registrations found" styleClass="empty-text"/>
+        </placeholder>
+    </TableView>
+</VBox>
