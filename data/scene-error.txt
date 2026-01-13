@@ -1,0 +1,5 @@
+Scene: my_registrations.fxml
+Error: javafx.fxml.LoadException: 
+/C:/Users/jeusr/IdeaProjects/Club_Event_Management%20-%20Copy%20(2)/target/classes/org/example/my_registrations.fxml:35
+
+Cause 1: java.lang.IllegalArgumentException: Unable to coerce CONSTRAINED_RESIZE_POLICY to interface javafx.util.Callback.

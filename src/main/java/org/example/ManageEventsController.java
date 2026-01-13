@@ -228,6 +228,8 @@ public class ManageEventsController {
         if (result != ButtonType.YES) return;
 
         update("UPDATE events SET registration_open = 0, status = 'CLOSED' WHERE event_id = ?", eventId);
+        // system announcement to registrants
+        createSystemAnnouncement(eventId, "EVENT_UPDATE", "Registration closed", "Registration has been closed for this event.");
     }
 
     private void onCancel(String eventId) {
@@ -242,6 +244,8 @@ public class ManageEventsController {
         if (result != cancelEvent) return;
 
         update("UPDATE events SET status = 'CANCELLED', registration_open = 0 WHERE event_id = ?", eventId);
+        // system announcement to registrants
+        createSystemAnnouncement(eventId, "EVENT_CANCELLED", "Event Cancelled", "This event has been cancelled.");
     }
 
     private void update(String sql, String eventId) {
@@ -250,6 +254,33 @@ public class ManageEventsController {
             ps.setString(1, eventId);
             ps.executeUpdate();
             loadEvents();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createSystemAnnouncement(String eventId, String type, String title, String defaultBody) {
+        try (Connection conn = Database.getConnection()) {
+            String eventName = null;
+            try (PreparedStatement psn = conn.prepareStatement("SELECT event_name FROM events WHERE event_id = ?")) {
+                psn.setString(1, eventId);
+                try (ResultSet rs = psn.executeQuery()) {
+                    if (rs.next()) eventName = rs.getString(1);
+                }
+            }
+            String body = defaultBody;
+            if (eventName != null && !eventName.isBlank()) {
+                body = defaultBody + " (" + eventName + ")";
+            }
+            try (PreparedStatement ps = conn.prepareStatement(
+                    "INSERT INTO announcements (title, type, body, event_id, is_system_generated, published) VALUES (?,?,?,?,1,1)"
+            )) {
+                ps.setString(1, title);
+                ps.setString(2, type);
+                ps.setString(3, body);
+                ps.setString(4, eventId);
+                ps.executeUpdate();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

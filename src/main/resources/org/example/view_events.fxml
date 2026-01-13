@@ -61,6 +61,22 @@
                     <ComboBox fx:id="batchCombo" promptText="Batch"/>
                     <TextField fx:id="departmentField" promptText="Department" styleClass="underline-field"/>
 
+                    <VBox spacing="8">
+                        <Label text="University" styleClass="white-label"/>
+                        <Label fx:id="universityLabel" style="-fx-text-fill: white;"/>
+                    </VBox>
+
+                    <!-- Group event section: shown only when event is group -->
+                    <VBox fx:id="groupSection" spacing="10" visible="false" managed="false">
+                        <Label text="Group Registration" styleClass="white-label"/>
+                        <TextField fx:id="groupNameField" promptText="Group Name" styleClass="underline-field"/>
+                        <HBox spacing="8">
+                            <Label fx:id="groupConstraintLabel" style="-fx-text-fill: #E0E0E0;"/>
+                            <Spinner fx:id="groupSizeSpinner" editable="true"/>
+                        </HBox>
+                        <VBox fx:id="groupMembersBox" spacing="8"/>
+                    </VBox>
+
                     <Button fx:id="registerBtn" text="Register Event" styleClass="gradient-btn" onAction="#onRegisterFromPanel" disable="true"/>
                 </VBox>
             </content>

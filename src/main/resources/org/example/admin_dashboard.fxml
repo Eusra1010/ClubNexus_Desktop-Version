@@ -42,8 +42,9 @@
                     styleClass="sidebar-btn"
                     onAction="#onViewRegistrations"/>
 
-            <Button text="📢  Announcements"
-                    styleClass="sidebar-btn"/>
+                <Button text="📢  Announcements"
+                    styleClass="sidebar-btn"
+                    onAction="#onAnnouncements"/>
 
             <Pane VBox.vgrow="ALWAYS"/>
 
@@ -101,9 +102,11 @@
                         <Label text="View Registrations" styleClass="card-title"/>
                     </VBox>
 
-                    <VBox styleClass="dashboard-card"
+                      <VBox styleClass="dashboard-card"
                           GridPane.columnIndex="1"
-                          GridPane.rowIndex="1">
+                          GridPane.rowIndex="1"
+                          onMouseClicked="#onAnnouncements"
+                          style="-fx-cursor: hand;">
                         <Label text="📢" styleClass="card-icon"/>
                         <Label text="Announcements" styleClass="card-title"/>
                     </VBox>

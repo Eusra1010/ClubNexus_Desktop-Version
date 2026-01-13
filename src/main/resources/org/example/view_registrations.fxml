@@ -29,6 +29,8 @@
 
     <TableView fx:id="table" VBox.vgrow="ALWAYS">
         <columns>
+            <TableColumn fx:id="groupCol" text="Group" prefWidth="180"/>
+            <TableColumn fx:id="universityCol" text="University" prefWidth="220"/>
             <TableColumn fx:id="nameCol" text="Name" prefWidth="220"/>
             <TableColumn fx:id="emailCol" text="Email" prefWidth="260"/>
             <TableColumn fx:id="contactCol" text="Contact" prefWidth="160"/>

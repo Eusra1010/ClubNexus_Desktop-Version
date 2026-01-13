@@ -37,3 +37,10 @@ build/
 
 ### Mac OS ###
 .DS_Store
+ 
+### Local data (SQLite) ###
+/data/*.db
+/data/db-info.txt
+
+### Logs ###
+*.log

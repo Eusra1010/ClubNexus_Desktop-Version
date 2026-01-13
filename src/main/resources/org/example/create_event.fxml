@@ -2,72 +2,95 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.CreateEventController"
-      alignment="CENTER"
-      spacing="20"
-      prefWidth="Infinity"
-      prefHeight="Infinity"
-      maxWidth="Infinity"
-      maxHeight="Infinity">
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.CreateEventController"
+            fitToWidth="true"
+            vbarPolicy="AS_NEEDED"
+            hbarPolicy="NEVER">
+    <content>
+        <VBox alignment="CENTER"
+              spacing="20"
+              prefWidth="Infinity"
+              maxWidth="Infinity">
 
-    <!-- FORM CARD -->
-    <VBox prefWidth="420"
-          spacing="18"
-          styleClass="login-box">
+            <padding>
+                <Insets top="24" right="24" bottom="24" left="24"/>
+            </padding>
 
-        <Label text="Create Event"
-               styleClass="login-title"/>
+            <!-- FORM CARD -->
+            <VBox prefWidth="420"
+                  spacing="18"
+                  styleClass="login-box">
 
-        <VBox spacing="6">
-            <Label text="Event Name" styleClass="white-label"/>
-            <TextField fx:id="eventNameField"
-                       promptText="Enter event name"
-                       styleClass="underline-field"/>
+                <Label text="Create Event"
+                       styleClass="login-title"/>
+
+                <VBox spacing="6">
+                    <Label text="Event Name" styleClass="white-label"/>
+                    <TextField fx:id="eventNameField"
+                               promptText="Enter event name"
+                               styleClass="underline-field"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Event Date" styleClass="white-label"/>
+                    <DatePicker fx:id="eventDatePicker"
+                                styleClass="underline-field"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Venue" styleClass="white-label"/>
+                    <TextField fx:id="venueField"
+                               promptText="Enter venue"
+                               styleClass="underline-field"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Club" styleClass="white-label"/>
+                    <TextField fx:id="clubField"
+                               promptText="Coding Club"
+                               styleClass="underline-field"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Event Fees" styleClass="white-label"/>
+                    <TextField fx:id="feeField"
+                               promptText="Enter fees (0 for Free)"
+                               styleClass="underline-field"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Registration Deadline" styleClass="white-label"/>
+                    <DatePicker fx:id="deadlinePicker"
+                                styleClass="underline-field"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Group Event" styleClass="white-label"/>
+                    <CheckBox fx:id="groupEventCheck" text="This is a group event"/>
+                </VBox>
+
+                <HBox spacing="8">
+                    <VBox spacing="6">
+                        <Label text="Min Group Members" styleClass="white-label"/>
+                        <TextField fx:id="minGroupField" promptText="e.g., 2" styleClass="underline-field"/>
+                    </VBox>
+                    <VBox spacing="6">
+                        <Label text="Max Group Members" styleClass="white-label"/>
+                        <TextField fx:id="maxGroupField" promptText="e.g., 5" styleClass="underline-field"/>
+                    </VBox>
+                </HBox>
+                <Button
+                    text="CREATE EVENT"
+                    onAction="#createEvent"
+                    styleClass="gradient-btn"
+                    prefHeight="56"
+                    maxWidth="Infinity"/>
+
+            </VBox>
         </VBox>
-
-        <VBox spacing="6">
-            <Label text="Event Date" styleClass="white-label"/>
-            <DatePicker fx:id="eventDatePicker"
-                        styleClass="underline-field"/>
-        </VBox>
-
-        <VBox spacing="6">
-            <Label text="Venue" styleClass="white-label"/>
-            <TextField fx:id="venueField"
-                       promptText="Enter venue"
-                       styleClass="underline-field"/>
-        </VBox>
-
-        <VBox spacing="6">
-            <Label text="Club" styleClass="white-label"/>
-            <TextField fx:id="clubField"
-                       promptText="Coding Club"
-                       styleClass="underline-field"/>
-        </VBox>
-
-        <VBox spacing="6">
-            <Label text="Event Fees" styleClass="white-label"/>
-            <TextField fx:id="feeField"
-                       promptText="Enter fees (0 for Free)"
-                       styleClass="underline-field"/>
-        </VBox>
-
-        <VBox spacing="6">
-            <Label text="Registration Deadline" styleClass="white-label"/>
-            <DatePicker fx:id="deadlinePicker"
-                        styleClass="underline-field"/>
-        </VBox>
-        <Button
-            text="CREATE EVENT"
-            onAction="#createEvent"
-            styleClass="gradient-btn"
-            prefHeight="56"
-            maxWidth="Infinity"/>
-
-
-
-    </VBox>
-</VBox>
+    </content>
+</ScrollPane>

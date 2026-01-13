@@ -62,15 +62,8 @@
 
 /* Alternate gradient for registration panel to stand out from background */
 .form-gradient-alt {
-    /* warm amber → coral, lighter tones for visibility over dark backgrounds */
-    -fx-background-color: linear-gradient(to bottom right, #FDE68A, #FCA5A5);
-}
-
-/* Subtle white border to further separate panel */
-.panel-border {
-    -fx-border-color: rgba(255,255,255,0.9);
-    -fx-border-width: 1.5;
-    -fx-border-radius: 22; /* matches edit-box radius */
+    /* warm amber → coral for higher contrast with white text */
+    -fx-background-color: linear-gradient(to bottom right, #FFB74D, #FF6F61);
 }
 
 .login-title {
@@ -349,4 +342,28 @@
     -fx-font-weight: bold;
     -fx-padding: 6 10;
     -fx-background-radius: 10;
+}
+
+/* My Registrations actions styling */
+.row-actions {
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 8;
+}
+.action-btn {
+    -fx-background-radius: 10;
+    -fx-padding: 6 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.action-open {
+    -fx-background-color: #3B82F6; /* blue */
+}
+.action-pay {
+    -fx-background-color: #1FAE9C; /* teal */
+}
+.action-cancel {
+    -fx-background-color: #E74C3C; /* red */
+}
+.action-btn:disabled {
+    -fx-opacity: 0.55;
 }

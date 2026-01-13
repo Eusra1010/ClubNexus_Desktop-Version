@@ -28,6 +28,11 @@ public class RegisterEventController {
         // Populate batch options
         batchCombo.setItems(FXCollections.observableArrayList("2k20","2k21","2k22","2k23","2k24"));
 
+        // Ensure event context is available; if not, prompt to select one
+        if (selectedEventId == null) {
+            try { promptForEventSelection(); } catch (Exception ignored) {}
+        }
+
         // Set event context labels
         eventNameLabel.setText(selectedEventName != null ? selectedEventName : "");
         clubLabel.setText(selectedClub != null ? selectedClub : "");
@@ -45,6 +50,7 @@ public class RegisterEventController {
         String email = safe(emailField.getText());
         String batch = batchCombo.getValue();
         String department = safe(departmentField.getText());
+        String university = fetchUniversityForCurrentStudent();
 
         StringBuilder errs = new StringBuilder();
         if (name.isEmpty()) errs.append("Full Name is required\n");
@@ -64,13 +70,15 @@ public class RegisterEventController {
 
         try (Connection conn = Database.getConnection()) {
             try (PreparedStatement ps = conn.prepareStatement(
-                    "INSERT INTO registrations (event_id, full_name, email, contact, paid, batch, department) VALUES (?, ?, ?, ?, 0, ?, ?)")) {
+                    "INSERT INTO registrations (event_id, full_name, roll, email, contact, paid, batch, department, university) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)")) {
                 ps.setString(1, selectedEventId);
                 ps.setString(2, name);
-                ps.setString(3, email);
-                ps.setString(4, contact);
-                ps.setString(5, batch);
-                ps.setString(6, department);
+                ps.setString(3, org.example.StudentSession.getCurrentRoll());
+                ps.setString(4, email);
+                ps.setString(5, contact);
+                ps.setString(6, batch);
+                ps.setString(7, department);
+                ps.setString(8, university);
                 ps.executeUpdate();
             }
             try (PreparedStatement ps2 = conn.prepareStatement(
@@ -78,24 +86,76 @@ public class RegisterEventController {
                 ps2.setString(1, selectedEventId);
                 ps2.executeUpdate();
             }
-            Alert choice = new Alert(Alert.AlertType.INFORMATION);
-            choice.setHeaderText(null);
-            choice.setContentText("Registered successfully! What would you like to do next?");
-            ButtonType stayEvents = new ButtonType("View More Events", ButtonBar.ButtonData.OK_DONE);
-            ButtonType goDashboard = new ButtonType("Go to Dashboard", ButtonBar.ButtonData.FINISH);
-            choice.getButtonTypes().setAll(stayEvents, goDashboard);
-            ButtonType result = choice.showAndWait().orElse(stayEvents);
-            if (result == goDashboard) {
-                try { Main.switchScene("student_dashboard.fxml"); } catch (Exception ignore) {}
-            } else {
-                try { Main.switchScene("view_events.fxml"); } catch (Exception ignore) {}
-            }
+            Alert ok = new Alert(Alert.AlertType.INFORMATION, "Registered successfully!", ButtonType.OK);
+            ok.setHeaderText(null);
+            ok.showAndWait();
+            try { Main.switchScene("view_events.fxml"); } catch (Exception ignore) {}
         } catch (Exception ex) {
             ex.printStackTrace();
-            Alert err = new Alert(Alert.AlertType.ERROR, "Failed to register", ButtonType.OK);
+            Alert err = new Alert(Alert.AlertType.ERROR);
+            err.setTitle("Registration Error");
+            err.setHeaderText(null);
+            err.setContentText("Failed to register: " + (ex.getMessage() == null ? "Unknown error" : ex.getMessage()));
+            err.getButtonTypes().setAll(ButtonType.OK);
             err.showAndWait();
         }
     }
 
     private static String safe(String s) { return s == null ? "" : s.trim(); }
+
+    private void promptForEventSelection() throws Exception {
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(
+                     "SELECT event_id, event_name, club_name FROM events WHERE COALESCE(registration_open,1)=1 AND UPPER(COALESCE(status,'ACTIVE')) <> 'CANCELLED' ORDER BY event_date ASC");
+             java.sql.ResultSet rs = ps.executeQuery()) {
+
+            java.util.List<EventChoice> options = new java.util.ArrayList<>();
+            while (rs.next()) {
+                options.add(new EventChoice(
+                        rs.getString("event_id"),
+                        rs.getString("event_name"),
+                        rs.getString("club_name")
+                ));
+            }
+
+            if (options.isEmpty()) {
+                Alert a = new Alert(Alert.AlertType.WARNING, "No open events available.", ButtonType.OK);
+                a.setHeaderText(null);
+                a.showAndWait();
+                return;
+            }
+
+            ChoiceDialog<EventChoice> dialog = new ChoiceDialog<>(options.get(0), options);
+            dialog.setTitle("Select Event");
+            dialog.setHeaderText("Choose an event to register");
+            dialog.setContentText("Event:");
+
+            java.util.Optional<EventChoice> sel = dialog.showAndWait();
+            if (sel.isPresent()) {
+                EventChoice ch = sel.get();
+                selectedEventId = ch.id;
+                selectedEventName = ch.name;
+                selectedClub = ch.club;
+            }
+        }
+    }
+
+    static class EventChoice {
+        final String id; final String name; final String club;
+        EventChoice(String id, String name, String club) { this.id = id; this.name = name; this.club = club; }
+        public String toString() { return name + " (" + club + ")"; }
+    }
+
+    private String fetchUniversityForCurrentStudent() {
+        String roll = org.example.StudentSession.getCurrentRoll();
+        if (roll == null || roll.isBlank()) return null;
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT university FROM students WHERE roll = ?")) {
+            ps.setString(1, roll);
+            try (java.sql.ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getString("university");
+            }
+        } catch (Exception ignore) {}
+        return null;
+    }
 }

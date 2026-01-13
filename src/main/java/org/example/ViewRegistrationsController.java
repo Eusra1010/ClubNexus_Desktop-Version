@@ -22,6 +22,8 @@ public class ViewRegistrationsController {
     @FXML private Label unpaidLabel;
 
     @FXML private TableView<Participant> table;
+    @FXML private TableColumn<Participant, String> groupCol;
+    @FXML private TableColumn<Participant, String> universityCol;
     @FXML private TableColumn<Participant, String> nameCol;
     @FXML private TableColumn<Participant, String> emailCol;
     @FXML private TableColumn<Participant, String> contactCol;
@@ -33,6 +35,8 @@ public class ViewRegistrationsController {
 
     @FXML
     public void initialize() {
+        groupCol.setCellValueFactory(c -> c.getValue().groupNameProperty());
+        universityCol.setCellValueFactory(c -> c.getValue().universityProperty());
         nameCol.setCellValueFactory(c -> c.getValue().nameProperty());
         emailCol.setCellValueFactory(c -> c.getValue().emailProperty());
         contactCol.setCellValueFactory(c -> c.getValue().contactProperty());
@@ -73,21 +77,34 @@ public class ViewRegistrationsController {
         EventOption selected = eventSelector.getValue();
         String eventId = selected == null ? null : selected.id;
 
-        StringBuilder sql = new StringBuilder(
-            "SELECT id, full_name, email, contact, paid FROM registrations WHERE 1=1 ");
+        // Build a UNION query so older individual registrations (without members) also show
+        StringBuilder sql = new StringBuilder();
         List<Object> params = new ArrayList<>();
 
-        if (eventId != null) {
-            sql.append(" AND event_id = ?");
-            params.add(eventId);
-        }
+        sql.append("SELECT mid, mname, memail, mcontact, paid, group_name, university, rtime FROM (\n");
+        // Part 1: members joined with registrations
+        sql.append("  SELECT rm.id AS mid, rm.full_name AS mname, rm.email AS memail, rm.contact AS mcontact, r.paid AS paid, r.group_name AS group_name, r.university AS university, r.registered_at AS rtime\n");
+        sql.append("  FROM registration_members rm\n");
+        sql.append("  JOIN registrations r ON rm.registration_id = r.id\n");
+        sql.append("  WHERE 1=1");
+        if (eventId != null) { sql.append(" AND r.event_id = ?"); params.add(eventId); }
         if (!search.isEmpty()) {
-            sql.append(" AND (LOWER(full_name) LIKE ? OR LOWER(email) LIKE ?)");
+            sql.append(" AND (LOWER(r.group_name) LIKE ? OR LOWER(r.university) LIKE ? OR LOWER(rm.full_name) LIKE ? OR LOWER(rm.email) LIKE ?)");
             String like = "%" + search.toLowerCase() + "%";
-            params.add(like);
-            params.add(like);
+            params.add(like); params.add(like); params.add(like); params.add(like);
         }
-        sql.append(" ORDER BY registered_at DESC");
+        sql.append("\n  UNION ALL\n");
+        // Part 2: registrations without members
+        sql.append("  SELECT r.id AS mid, r.full_name AS mname, r.email AS memail, r.contact AS mcontact, r.paid AS paid, r.group_name AS group_name, r.university AS university, r.registered_at AS rtime\n");
+        sql.append("  FROM registrations r\n");
+        sql.append("  WHERE NOT EXISTS (SELECT 1 FROM registration_members rm2 WHERE rm2.registration_id = r.id)");
+        if (eventId != null) { sql.append(" AND r.event_id = ?"); params.add(eventId); }
+        if (!search.isEmpty()) {
+            sql.append(" AND (LOWER(r.group_name) LIKE ? OR LOWER(r.university) LIKE ? OR LOWER(r.full_name) LIKE ? OR LOWER(r.email) LIKE ?)");
+            String like = "%" + search.toLowerCase() + "%";
+            params.add(like); params.add(like); params.add(like); params.add(like);
+        }
+        sql.append("\n) t ORDER BY rtime DESC, mid ASC");
 
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql.toString())) {
@@ -96,12 +113,14 @@ public class ViewRegistrationsController {
             }
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    int id = rs.getInt("id");
-                    String name = rs.getString("full_name");
-                    String email = rs.getString("email");
-                    String contact = rs.getString("contact");
+                    int id = rs.getInt("mid");
+                    String name = rs.getString("mname");
+                    String email = rs.getString("memail");
+                    String contact = rs.getString("mcontact");
                     boolean paid = rs.getInt("paid") == 1;
-                    rows.add(new Participant(id, name, email, contact, paid));
+                    String groupName = rs.getString("group_name");
+                    String university = rs.getString("university");
+                    rows.add(new Participant(id, name, email, contact, paid, groupName, university));
                 }
             }
         } catch (Exception e) {
@@ -124,19 +143,25 @@ public class ViewRegistrationsController {
 
     public static class Participant {
         final int id;
+        private final javafx.beans.property.SimpleStringProperty groupName;
+        private final javafx.beans.property.SimpleStringProperty university;
         private final javafx.beans.property.SimpleStringProperty name;
         private final javafx.beans.property.SimpleStringProperty email;
         private final javafx.beans.property.SimpleStringProperty contact;
         private boolean paid;
 
-        public Participant(int id, String name, String email, String contact, boolean paid) {
+        public Participant(int id, String name, String email, String contact, boolean paid, String groupName, String university) {
             this.id = id;
+            this.groupName = new javafx.beans.property.SimpleStringProperty(groupName == null ? "" : groupName);
+            this.university = new javafx.beans.property.SimpleStringProperty(university == null ? "" : university);
             this.name = new javafx.beans.property.SimpleStringProperty(name);
             this.email = new javafx.beans.property.SimpleStringProperty(email);
             this.contact = new javafx.beans.property.SimpleStringProperty(contact);
             this.paid = paid;
         }
 
+        public javafx.beans.property.StringProperty groupNameProperty() { return groupName; }
+        public javafx.beans.property.StringProperty universityProperty() { return university; }
         public javafx.beans.property.StringProperty nameProperty() { return name; }
         public javafx.beans.property.StringProperty emailProperty() { return email; }
         public javafx.beans.property.StringProperty contactProperty() { return contact; }

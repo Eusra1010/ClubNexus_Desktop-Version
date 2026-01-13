@@ -56,6 +56,12 @@ public class AdminDashboardController {
         loadIntoContent("view_registrations.fxml");
     }
 
+    // Sidebar: Announcements (Create Announcement)
+    @FXML
+    public void onAnnouncements() {
+        loadIntoContent("create_announcement.fxml");
+    }
+
 
     private void loadIntoContent(String fxml) {
         try {

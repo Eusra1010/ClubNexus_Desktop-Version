@@ -87,6 +87,9 @@ public class StudentLoginController {
 
         /* ---------------- SCENE SWITCH (SEPARATE) ---------------- */
         try {
+            // set student session for downstream features (notifications, targeting)
+            StudentSession.setCurrentRoll(rollNo);
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login Successful");
             alert.setHeaderText(null);

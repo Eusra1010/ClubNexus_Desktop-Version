@@ -15,6 +15,9 @@ public class CreateEventController {
     @FXML private TextField clubField;
     @FXML private TextField feeField;
     @FXML private DatePicker deadlinePicker;
+    @FXML private CheckBox groupEventCheck;
+    @FXML private TextField minGroupField;
+    @FXML private TextField maxGroupField;
 
     @FXML
     public void initialize() {
@@ -124,8 +127,11 @@ public class CreateEventController {
                     registration_open,
                     registration_count,
                     status,
-                    registration_deadline
-                ) VALUES (?,?,?,?,?,?,?,?,?,?)
+                    registration_deadline,
+                    is_group,
+                    min_group_size,
+                    max_group_size
+                ) VALUES (?,?,?,?,?,?,?,?,?,?,?, ?, ?)
                 """;
 
         try (Connection conn = Database.getConnection();
@@ -141,6 +147,15 @@ public class CreateEventController {
             ps.setInt(8, 0);
             ps.setString(9, "ACTIVE");
             ps.setString(10, deadline);
+
+            // Group event flags
+            boolean isGroup = groupEventCheck != null && groupEventCheck.isSelected();
+            Integer minGroup = parseIntSafe(minGroupField == null ? null : minGroupField.getText());
+            Integer maxGroup = parseIntSafe(maxGroupField == null ? null : maxGroupField.getText());
+            if (!isGroup) { minGroup = null; maxGroup = null; }
+            ps.setInt(11, isGroup ? 1 : 0);
+            if (minGroup == null) ps.setNull(12, java.sql.Types.INTEGER); else ps.setInt(12, minGroup);
+            if (maxGroup == null) ps.setNull(13, java.sql.Types.INTEGER); else ps.setInt(13, maxGroup);
 
             ps.executeUpdate();
             showAlert("Event created successfully");
@@ -166,5 +181,15 @@ public class CreateEventController {
         feeField.clear();
         eventDatePicker.setValue(null);
         deadlinePicker.setValue(null);
+        if (groupEventCheck != null) groupEventCheck.setSelected(false);
+        if (minGroupField != null) minGroupField.clear();
+        if (maxGroupField != null) maxGroupField.clear();
+    }
+
+    private Integer parseIntSafe(String s) {
+        try {
+            if (s == null || s.trim().isEmpty()) return null;
+            return Integer.parseInt(s.trim());
+        } catch (Exception e) { return null; }
     }
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="org.example.CreateAnnouncementController"
+    spacing="16"
+    alignment="CENTER">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Button text="← Back" styleClass="header-btn" onAction="#onBack"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Label text="Create Announcement" styleClass="page-title"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <!-- Scrollable center form to avoid clipping on small windows -->
+    <ScrollPane fitToWidth="true" maxHeight="Infinity" styleClass="form-scroll">
+        <content>
+            <VBox spacing="18" style="-fx-background-color: #004d4d; -fx-background-radius: 12; -fx-padding: 20;" prefWidth="420">
+                <VBox spacing="6">
+                    <Label text="Announcement Title" styleClass="white-label"/>
+                    <TextField fx:id="titleField" promptText="Enter title" styleClass="underline-field"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Select Event (optional)" styleClass="white-label"/>
+                    <ComboBox fx:id="eventCombo" promptText="Choose event"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Announcement Type" styleClass="white-label"/>
+                    <ComboBox fx:id="typeCombo" promptText="Choose type"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Message (optional)" styleClass="white-label"/>
+                    <!-- Use default TextArea skin/colors for reliable editing -->
+                    <TextArea fx:id="bodyArea" promptText="Write a brief message" prefRowCount="6" prefHeight="160"/>
+                </VBox>
+
+                <HBox spacing="10">
+                    <Button text="Publish" styleClass="login-btn-white" onAction="#onPublish" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+</VBox>

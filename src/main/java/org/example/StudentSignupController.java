@@ -17,6 +17,9 @@ public class StudentSignupController {
     private TextField roll;
 
     @FXML
+    private TextField university;
+
+    @FXML
     private PasswordField passwordField;
 
     @FXML
@@ -130,6 +133,7 @@ public class StudentSignupController {
         try {
             String name = fullName.getText();
             String rollNo = roll.getText();
+            String universityName = university.getText();
 
             String rawPassword = passwordVisible
                     ? visiblePasswordField.getText()
@@ -138,14 +142,15 @@ public class StudentSignupController {
             String hashedPassword = PasswordUtil.hashPassword(rawPassword);
 
             var conn = Database.getConnection();
-            var ps = conn.prepareStatement(
-                    "INSERT INTO students (full_name, roll, password_hash) VALUES (?, ?, ?)"
-            );
+                var ps = conn.prepareStatement(
+                    "INSERT INTO students (full_name, roll, password_hash, university) VALUES (?, ?, ?, ?)"
+                );
 
             ps.setString(1, name);
             ps.setString(2, rollNo);
             ps.setString(3, hashedPassword);
-            ps.executeUpdate();
+                ps.setString(4, universityName);
+                ps.executeUpdate();
 
             ps.close();
             conn.close();

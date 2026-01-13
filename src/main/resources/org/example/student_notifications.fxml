@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.StudentNotificationsController"
+      spacing="16"
+      styleClass="content-area">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <!-- Header -->
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button text="← Back" styleClass="header-btn" onAction="#onBack"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Label text="Notifications" styleClass="page-title"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Button text="Mark All Read" styleClass="header-btn" onAction="#onMarkAllRead"/>
+    </HBox>
+
+    <!-- Filters -->
+    <HBox spacing="10">
+        <ToggleButton fx:id="allToggle" text="All" selected="true" styleClass="filter-btn filter-all"/>
+        <ToggleButton fx:id="unreadToggle" text="Unread" styleClass="filter-btn filter-active"/>
+    </HBox>
+
+    <!-- Notifications list -->
+    <ListView fx:id="list" VBox.vgrow="ALWAYS">
+        <placeholder>
+            <Label text="No notifications" styleClass="empty-text"/>
+        </placeholder>
+    </ListView>
+</VBox>

@@ -35,6 +35,13 @@
                        styleClass="underline-field"/>
         </VBox>
 
+              <VBox spacing="6">
+                     <Label text="University" styleClass="white-label"/>
+                     <TextField fx:id="university"
+                                      promptText="Enter university name"
+                                      styleClass="underline-field"/>
+              </VBox>
+
         <VBox spacing="6">
             <Label text="Create Password"
                    styleClass="white-label"/>
